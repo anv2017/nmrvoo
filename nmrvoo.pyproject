@@ -1,0 +1,11 @@
+{
+    "files": [
+        "samplewidget.py",
+        "samplewidget.ui",
+        "spectralwidget.py",
+        "spectrometer.py",
+        "spectrum.py",
+        "vooapplication.py",
+        "voomainwindow.py"
+    ]
+}
