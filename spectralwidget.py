@@ -1,5 +1,5 @@
 # This Python file uses the following encoding: utf-8
-from PySide6.QtCore import Qt, QRect, QPoint, QPointList
+from PySide6.QtCore import Qt, QRect, QPoint, QPointList, QSize
 from PySide6.QtWidgets import QWidget
 from PySide6.QtGui import QPainter, QBrush, QColor, QPen
 
@@ -12,6 +12,11 @@ class SpectralWidget(QWidget):
         self.screenpoints=QPointList()
         self.spectrum=None
         self.baseline=0.8
+        self.showreal=True
+        self.showimag=False
+
+    def sizeHint(self):
+        return QSize(800,600)
 
     def SetSpectrum(self,s):
         self.spectrum=s
@@ -30,7 +35,6 @@ class SpectralWidget(QWidget):
     def resizeEvent(self,event):
         super().resizeEvent(event)
         self.Update()
-        self.update()
 
     def Update(self):
         if self.spectrum == None:
@@ -59,9 +63,7 @@ class SpectralWidget(QWidget):
                 sidx+=1
                 max=0
 
-
-
-
+        self.update()
 
     def XToScreen(self,i):
         return int(i*self.rect().width()/len(self.spectrum.acblock))
@@ -83,4 +85,13 @@ class SpectralWidget(QWidget):
         p.setPen(QPen(QColor("green")))
 
         p.drawPolyline(self.screenpoints)
+
+    def ShowRealValues(self,b):
+        self.showreal=b
+        self.Update()
+
+    def ShowImagValues(self,b):
+        self.showimag=b
+        self.Update()
+
 
